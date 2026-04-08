@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erhvervsinformatik – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF5A1F;
+    --dark: #0f0f0f;
+    --mid: #1a1a1a;
+    --card: #222222;
+    --border: #333;
+    --text: #f0f0f0;
+    --muted: #888;
+    --accent: #FF5A1F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(15,15,15,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 2rem;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-right: 2rem;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0 1rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-links a:hover {
+    color: var(--text);
+    border-bottom-color: var(--orange);
+  }
+
+  /* HERO */
+  .hero {
+    margin-top: 56px;
+    height: 480px;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a0a00 50%, #0f0f0f 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(255,90,31,0.15) 0%, transparent 70%);
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(52px, 8vw, 96px);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    line-height: 0.9;
+    position: relative;
+  }
+
+  .hero h1 span {
+    color: var(--orange);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 300;
+    position: relative;
+  }
+
+  /* SHORTCUTS */
+  .shortcuts {
+    padding: 3rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.5rem;
+  }
+
+  .shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .shortcut-btn {
+    background: var(--card);
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: background 0.15s;
+  }
+  .shortcut-btn:hover {
+    background: #2a2a2a;
+  }
+
+  .shortcut-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--orange);
+    opacity: 0.4;
+    line-height: 1;
+    min-width: 28px;
+  }
+
+  .shortcut-label {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  /* CHAPTERS */
+  .chapters {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  .chapter {
+    margin-bottom: 4px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    overflow: hidden;
+  }
+
+  .chapter-header {
+    display: flex;
+    align-items: stretch;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .chapter-num-block {
+    background: var(--orange);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: white;
+    width: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .chapter-title-block {
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+  }
+
+  .chapter-tag {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .chapter-title-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .chapter-toggle {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 20px;
+    transition: transform 0.2s;
+  }
+
+  .chapter.open .chapter-toggle {
+    transform: rotate(90deg);
+  }
+
+  .chapter-body {
+    display: none;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .chapter.open .chapter-body {
+    display: block;
+  }
+
+  .chapter-body p {
+    color: #bbb;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .chapter-body img {
+    width: 100%;
+    max-width: 700px;
+    display: block;
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+  }
+
+  .img-caption {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.25rem 0;
+  }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--orange);
+    color: white;
+    border: none;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 99;
+  }
+  .back-to-top.visible { opacity: 1; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  @media (max-width: 600px) {
+    .hero { height: 360px; }
+    .shortcut-btn { padding: 1rem; }
+    .chapter-num-block { width: 52px; font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="top">
+  <div class="nav-logo">EI Portfolio</div>
+  <div class="nav-links">
+    <a href="#shortcuts">Overblik</a>
+    <a href="#kap1">Gorilla Juice</a>
+    <a href="#kap2">Netto</a>
+    <a href="#kap3">It-sikkerhed</a>
+    <a href="#kap4">Digitale artefakter</a>
+    <a href="#kap5">MobilePay</a>
+    <a href="#kap6">Leavitts Model</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Portfolio</div>
+  <h1>Erhvervs<span>informatik</span></h1>
+  <p class="hero-sub">Klik på et kapitel nedenfor for at læse videre</p>
+</section>
+
+<!-- SHORTCUTS -->
+<section class="shortcuts" id="shortcuts">
+  <div class="section-label">Hurtig navigation</div>
+  <div class="shortcuts-grid">
+    <a href="#kap1" class="shortcut-btn">
+      <span class="shortcut-num">01</span>
+      <span class="shortcut-label">Gorilla Juice – Markedsføring</span>
+    </a>
+    <a href="#kap2" class="shortcut-btn">
+      <span class="shortcut-num">02</span>
+      <span class="shortcut-label">Netto – Fremtidens virksomhed</span>
+    </a>
+    <a href="#kap3" class="shortcut-btn">
+      <span class="shortcut-num">03</span>
+      <span class="shortcut-label">It-sikkerhed & begreber</span>
+    </a>
+    <a href="#kap4" class="shortcut-btn">
+      <span class="shortcut-num">04</span>
+      <span class="shortcut-label">Digitale artefakter</span>
+    </a>
+    <a href="#kap5" class="shortcut-btn">
+      <span class="shortcut-num">05</span>
+      <span class="shortcut-label">MobilePay mindmap</span>
+    </a>
+    <a href="#kap6" class="shortcut-btn">
+      <span class="shortcut-num">06</span>
+      <span class="shortcut-label">Leavitts Model – Netto</span>
+    </a>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<div class="chapters">
+
+  <!-- KAP 1 -->
+  <div class="chapter" id="kap1">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num-block">01</div>
+      <div class="chapter-title-block">
+        <div class="chapter-tag">Dansk markedsføring</div>
+        <div class="chapter-title-text">Gorilla Juice – Reklameplakat</div>
+      </div>
+      <div class="chapter-toggle">›</div>
+    </div>
+    <div class="chapter-body">
+      <div class="tag-row">
+        <span class="tag">Markedsføring</span>
+        <span class="tag">Design</span>
+        <span class="tag">Målgruppe</span>
+      </div>
+      <p>I dette kapitel har vi lavet en reklameplakat for <strong>Gorilla Juice</strong> – en virksomhed der sælger friskpressede juices og smoothies lavet på friske råvarer. Plakaten skal tiltrække kunder og kommunikere virksomhedens budskab om energi, smag og kvalitet.</p>
+      <p>Plakaten indeholder sloganet <em>"Friskpressede juices og smoothies lavet på friske råvarer"</em> og opfordrer kunderne til at komme forbi med budskabet <em>"Vi glæder os til at se jer!"</em></p>
+      <div class="divider"></div>
+      <p><strong>Vores plakat:</strong></p>
+      <img src="1775636379247_image.png" alt="Gorilla Juice reklameplakat">
+      <div class="img-caption">Reklameplakat for Gorilla Juice med friskpressede juices</div>
+    </div>
+  </div>
+
+  <!-- KAP 2 -->
+  <div class="chapter" id="kap2">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num-block">02</div>
+      <div class="chapter-title-block">
+        <div class="chapter-tag">Virksomhedsanalyse</div>
+        <div class="chapter-title-text">Netto – Fremtidens virksomhed</div>
+      </div>
+      <div class="chapter-toggle">›</div>
+    </div>
+    <div class="chapter-body">
+      <div class="tag-row">
+        <span class="tag">Teknologi</span>
+        <span class="tag">Fremtid</span>
+        <span class="tag">Analyse</span>
+        <span class="tag">Lokationer</span>
+      </div>
+      <p>Her analyserer vi <strong>Netto</strong> som fremtidens virksomhed. Vi ser på virksomhedens nuværende situation, teknologiske fremtidsmuligheder og fordele/udfordringer ved ny teknologi.</p>
+      <p>Analysen er lavet af Abdul og Omar og indeholder bl.a. en undersøgelse af Netto-besøg blandt danskere, deres lokationer i Esbjerg, samt hvordan robotter og ny teknologi kan forme fremtiden for Netto.</p>
+      <div class="divider"></div>
+      <img src="1775636393332_image.png" alt="Netto fremtidens virksomhed">
+      <div class="img-caption">Forside: Fremtidens virksomhed – Netto</div>
+      <img src="1775636412846_image.png" alt="Netto indholdsfortegnelse">
+      <div class="img-caption">Indholdsfortegnelse: Virksomhedens nuværende situation, Teknologiske fremtidsmuligheder, Fordele og udfordringer</div>
+      <img src="1775636406782_image.png" alt="Netto nuværende situation">
+      <div class="img-caption">Virksomhedens nuværende situation – besøgsstatistik og målgruppe</div>
+      <img src="1775636409862_image.png" alt="Netto teknologiske fremtidsmuligheder">
+      <div class="img-caption">Teknologiske fremtidsmuligheder – robotter i Netto</div>
+      <img src="1775636416524_image.png" alt="Netto teknologi fordele ulemper">
+      <div class="img-caption">Fordele og ulemper ved teknologi – spørgsmål til analyse</div>
+      <img src="1775636389919_image.png" alt="Netto lokationer i Esbjerg">
+      <div class="img-caption">De fem Netto-lokationer i Esbjerg</div>
+    </div>
+  </div>
+
+  <!-- KAP 3 -->
+  <div class="chapter" id="kap3">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num-block">03</div>
+      <div class="chapter-title-block">
+        <div class="chapter-tag">It-sikkerhed</div>
+        <div class="chapter-title-text">It-sikkerhed & begreber</div>
+      </div>
+      <div class="chapter-toggle">›</div>
+    </div>
+    <div class="chapter-body">
+      <div class="tag-row">
+        <span class="tag">It-sikkerhed</span>
+        <span class="tag">Begreber</span>
+        <span class="tag">GDPR</span>
+        <span class="tag">Malware</span>
+      </div>
+      <p>I dette kapitel gennemgår vi centrale it-sikkerhedsbegreber med egne forklaringer og eksempler. Vi dækker alt fra <strong>hardware og software</strong> til <strong>malware, cookies, kryptering, GDPR</strong> og meget mere.</p>
+      <p>Listen indeholder 28 begreber, der er forklaret med egne ord og konkrete eksempler – fx at en virus er et "smittende program der ødelægger filer" og et eksempel er "inficeret download".</p>
+      <div class="divider"></div>
+      <img src="1775636472668_image.png" alt="It-sikkerhed begreber liste">
+      <div class="img-caption">Begrebsliste med 28 it-sikkerhedsbegreber, egne forklaringer og eksempler</div>
+    </div>
+  </div>
+
+  <!-- KAP 4 -->
+  <div class="chapter" id="kap4">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num-block">04</div>
+      <div class="chapter-title-block">
+        <div class="chapter-tag">Digitale artefakter</div>
+        <div class="chapter-title-text">Digitale artefakter – mine enheder</div>
+      </div>
+      <div class="chapter-toggle">›</div>
+    </div>
+    <div class="chapter-body">
+      <div class="tag-row">
+        <span class="tag">Devices</span>
+        <span class="tag">Apps</span>
+        <span class="tag">Fordele & ulemper</span>
+      </div>
+      <p>Et digitalt artefakt er en device eller applikation som bruges til at løse et særligt formål. I denne opgave har vi lavet en liste over de 5-10 devices og apps vi bruger mest i hverdagen.</p>
+      <p>Listen indeholder bl.a. TikTok, PC, El-cykel, Telefon, Snapchat, TV, Mikroovn, YouTube og Briller – med beskrivelse af hvorfor vi bruger dem og deres fordele og ulemper.</p>
+      <div class="divider"></div>
+      <img src="1775636478582_image.png" alt="Digitale artefakter tabel">
+      <div class="img-caption">Tabel over digitale artefakter med fordele og ulemper</div>
+    </div>
+  </div>
+
+  <!-- KAP 5 -->
+  <div class="chapter" id="kap5">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num-block">05</div>
+      <div class="chapter-title-block">
+        <div class="chapter-tag">Digitale systemer</div>
+        <div class="chapter-title-text">MobilePay – mindmap</div>
+      </div>
+      <div class="chapter-toggle">›</div>
+    </div>
+    <div class="chapter-body">
+      <div class="tag-row">
+        <span class="tag">MobilePay</span>
+        <span class="tag">Mindmap</span>
+        <span class="tag">Input/output</span>
+        <span class="tag">Brugergrænseflade</span>
+      </div>
+      <p>I dette kapitel analyserer vi <strong>MobilePay</strong> som et digitalt system ved hjælp af et mindmap. Vi ser på systemets udseende, funktionalitet, brugergrænseflade, input-teknologi og output-teknologi.</p>
+      <p>Mindmappet viser bl.a. at MobilePay kan sende/modtage penge, scanne QR-koder, dele udgifter og donere. Input sker via telefonnummer eller QR-kode, og output er kvittering, notifikation eller lydvibration.</p>
+      <div class="divider"></div>
+      <img src="1775636487181_image.png" alt="MobilePay mindmap">
+      <div class="img-caption">Mindmap over MobilePay – udseende, funktionalitet, brugergrænseflade, input og output</div>
+    </div>
+  </div>
+
+  <!-- KAP 6 -->
+  <div class="chapter" id="kap6">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num-block">06</div>
+      <div class="chapter-title-block">
+        <div class="chapter-tag">Virksomhedsanalyse</div>
+        <div class="chapter-title-text">Leavitts Model – Netto analyse</div>
+      </div>
+      <div class="chapter-toggle">›</div>
+    </div>
+    <div class="chapter-body">
+      <div class="tag-row">
+        <span class="tag">Leavitts Model</span>
+        <span class="tag">Struktur</span>
+        <span class="tag">Teknologi</span>
+        <span class="tag">Opgaver</span>
+        <span class="tag">Personer</span>
+      </div>
+      <p>Her bruger vi <strong>Leavitts Model</strong> til at analysere Netto. Modellen ser på fire delsystemer: <strong>Struktur</strong> (mål, regler, strategi), <strong>Teknologi</strong> (IT, maskiner, software), <strong>Opgaver</strong> (arbejdet der skal udføres) og <strong>Personer</strong> (medarbejdere og kvalifikationer).</p>
+      <p>Analysen giver et overblik over virksomheden og viser hvordan elementerne hænger sammen – og hvordan virksomheden kan forandre sig ved implementering af et digitalt artefakt.</p>
+      <div class="divider"></div>
+      <img src="1775636491162_image.png" alt="Leavitts Model analyse">
+      <div class="img-caption">Virksomhedsanalyse med Leavitts Model – e-bog kapitel 3 afsnit 3.3</div>
+      <img src="1775636423986_image.png" alt="Leavitts Model aktiviteter tabel">
+      <div class="img-caption">Aktivitetstabel – kategorisering i Struktur, Teknologi, Opgaver og Personer</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BACK TO TOP -->
+<a href="#top" class="back-to-top" id="backTop">↑</a>
+
+<!-- FOOTER -->
+<footer>
+  Erhvervsinformatik Portfolio &nbsp;·&nbsp; Abdul og Omar
+</footer>
+
+<script>
+  function toggle(header) {
+    const chapter = header.parentElement;
+    chapter.classList.toggle('open');
+  }
+
+  // Back to top button
+  const btn = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+</script>
+
+</body>
+</html>
